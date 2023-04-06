@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Create poll</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+</head>
+<body>
+    <h1>Create Poll</h1>
+    <form action="#" th:action="@{/savepoll}" th:object="${poll}" method="post">
+        <label for="title">Title:</label>
+        <input type="text" id="title" th:field="*{title}"/><br/><br/>
+        
+        <label for="query1">Question 1:</label>
+        <input type="text" th:field="*{questions[0].query}"/><br/><br/>
+        
+		<label for="query1">Question 2:</label>
+        <input type="text" th:field="*{questions[1].query}"/><br/><br/>    
+        
+        <label for="query1">Question 3:</label>
+        <input type="text" th:field="*{questions[2].query}"/><br/><br/>        
+        
+        <input type="submit" class="btn btn-success" value="Submit"/>
+        <input type="reset" value="Reset" class="btn btn-warning" />
+        <a href="/polls" class="btn btn-primary"> Back to polls</a>
+    </form>
+</body>
+</html>

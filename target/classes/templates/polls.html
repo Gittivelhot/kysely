@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+<head>
+<title>Polls</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+ <div class="container">
+ <div class="col-md-4">
+    <h1>Polls</h1>
+    </div>
+    <div class="col-md-4">
+        <h3>Welcome <span sec:authentication="name"></span></h3>
+    </div>
+    <div class="col-md-4" style="padding:20px 0">
+    </div>
+  <table class="table table-striped" >
+  <thead>   
+     <tr>
+    		<th>Poll title</th>
+            <th>Questions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="poll : ${polls}">
+        	<td th:text="${poll.title}"></td>
+        	<td>
+        			<p th:each="question : ${poll.questions}" th:text="${question.query}"></p>
+        	</td>
+        </tr>
+        </tbody>
+    
+    </table>
+    <a href="/addpoll" class = "btn btn-primary"> Add new Question</a>
+</div>
+</body>
+</html>
