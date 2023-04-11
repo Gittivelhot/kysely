@@ -19,7 +19,7 @@ public class Poll {
 	@GeneratedValue(strategy=GenerationType.AUTO)
     private Long poll_id;
 	private String title;
-    @OneToMany(mappedBy = "poll", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "poll", cascade = CascadeType.ALL)
     @JsonIgnore
     @JsonIgnoreProperties("jsonpolls")
     private List<Question> questions;
@@ -31,11 +31,8 @@ public class Poll {
 	}
 	
 	public Poll() {
-		super();
-		this.poll_id = null;
-		this.questions = null;
-		this.title = null;
 	}
+	
 	public Long getPoll_id() {
         return poll_id;
     }

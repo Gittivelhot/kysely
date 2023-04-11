@@ -16,7 +16,6 @@ import hh.ohjelmistoprojekti.kysely.domain.QuestionRepository;
 
 @SpringBootApplication
 public class KyselyApplication {
-	private static final Logger log = LoggerFactory.getLogger(KyselyApplication.class);
 
 	public static void main(String[] args) {
 		SpringApplication.run(KyselyApplication.class, args);
@@ -27,21 +26,25 @@ public class KyselyApplication {
         Poll p1 = new Poll("banaani kysely");
         prepository.save(p1);
 
-        log.info("moro");
         Question q1 = new Question();
         q1.setQuery("Onko banaani keltainen?");
         q1.setPoll(p1);
+        qrepository.save(q1);
 
         Question q2 = new Question();
         q2.setQuery("Onko banaani punainen?");
         q2.setPoll(p1);
+        qrepository.save(q2);
 
         Question q3 = new Question();
         q3.setQuery("Onko banaani sininen?");
         q3.setPoll(p1);
+        qrepository.save(q3);
         
+        prepository.save(p1);
 
         System.out.println(p1);
+        System.out.println(q1);
 	};
 
 	
