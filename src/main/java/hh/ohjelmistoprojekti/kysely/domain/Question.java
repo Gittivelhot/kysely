@@ -1,5 +1,7 @@
 package hh.ohjelmistoprojekti.kysely.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,6 +18,7 @@ public class Question {
     @ManyToOne
     @JoinColumn(name = "poll_id")
     private Poll poll;
+    @JsonIgnoreProperties ("jsonquestions") 
     
 	public Question(String query, Poll poll) {
 		super();

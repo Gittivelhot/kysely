@@ -1,7 +1,9 @@
 package hh.ohjelmistoprojekti.kysely.domain;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -14,18 +16,18 @@ import jakarta.persistence.OneToMany;
 public class Poll {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.AUTO)
     private Long poll_id;
 	private String title;
     @OneToMany(mappedBy = "poll", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Question> questions = new ArrayList<>();
+    @JsonIgnore
+    @JsonIgnoreProperties("jsonpolls")
+    private List<Question> questions;
     
     
-	public Poll(Long poll_id, String title, List<Question> questions) {
+	public Poll(String title) {
 		super();
-		this.poll_id = poll_id;
 		this.title = title;
-		this.questions = questions;
 	}
 	
 	public Poll() {
@@ -57,15 +59,10 @@ public class Poll {
     public void setQuestions(List<Question> questions) {
         this.questions = questions;
     }
-
-    public void addQuestion(Question question) {
-        questions.add(question);
-        question.setPoll(this);
-    }
     
 	@Override
 	public String toString() {
-		return "Poll [poll_id=" + poll_id + ", title=" + title + ", questions=" + questions + "]";
+		return "Poll [poll_id=" + poll_id + ", title=" + title + ", questions=" + this.getQuestions() + "]";
 	}
 
 }
