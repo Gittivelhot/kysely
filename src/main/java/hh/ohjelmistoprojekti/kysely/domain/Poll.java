@@ -10,6 +10,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 
 @Entity
@@ -20,7 +21,6 @@ public class Poll {
     private Long poll_id;
 	private String title;
     @OneToMany(mappedBy = "poll", cascade = CascadeType.ALL)
-    @JsonIgnore
     @JsonIgnoreProperties("jsonpolls")
     private List<Question> questions;
     
