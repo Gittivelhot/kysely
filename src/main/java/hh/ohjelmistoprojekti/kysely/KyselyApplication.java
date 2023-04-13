@@ -20,6 +20,7 @@ public class KyselyApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(KyselyApplication.class, args);
 	}
+	
 	@Bean
 	public CommandLineRunner demo(PollRepository prepository, QuestionRepository qrepository) 
 	{return (args) -> {
