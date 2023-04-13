@@ -1,14 +1,12 @@
 package hh.ohjelmistoprojekti.kysely;
 
-import java.util.ArrayList;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import hh.ohjelmistoprojekti.kysely.domain.Answer;
+import hh.ohjelmistoprojekti.kysely.domain.AnswerRepository;
 import hh.ohjelmistoprojekti.kysely.domain.Poll;
 import hh.ohjelmistoprojekti.kysely.domain.PollRepository;
 import hh.ohjelmistoprojekti.kysely.domain.Question;
@@ -20,9 +18,8 @@ public class KyselyApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(KyselyApplication.class, args);
 	}
-	
 	@Bean
-	public CommandLineRunner demo(PollRepository prepository, QuestionRepository qrepository) 
+	public CommandLineRunner demo(PollRepository prepository, QuestionRepository qrepository, AnswerRepository arepository) 
 	{return (args) -> {
         Poll p1 = new Poll("banaani kysely");
         Poll p2 = new Poll("vaate kysely");
@@ -73,6 +70,33 @@ public class KyselyApplication {
         q8.setPoll(p3);
         qrepository.save(q8);
 
+        
+        Answer a1 = new Answer ();
+        a1.setReply("Banaani on keltainen");
+        a1.setQuestion(q1);
+        arepository.save(a1);
+        
+        
+        Answer a2 = new Answer ();
+        a2.setReply("Pizza salee");
+        a2.setQuestion(q8);
+        arepository.save(a2);
+        
+        Answer a3 = new Answer ();
+        a3.setReply("GT");
+        a3.setQuestion(q7);
+        arepository.save(a3);
+
+        Answer a4 = new Answer ();
+        a4.setReply("GT");
+        a4.setQuestion(q7);
+        arepository.save(a4);
+        
+        Answer a5 = new Answer ();
+        a5.setReply("GT");
+        a5.setQuestion(q7);
+        arepository.save(a5);
+        
 
 	};
 

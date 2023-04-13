@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import hh.ohjelmistoprojekti.kysely.domain.Answer;
+import hh.ohjelmistoprojekti.kysely.domain.AnswerRepository;
 import hh.ohjelmistoprojekti.kysely.domain.Poll;
 import hh.ohjelmistoprojekti.kysely.domain.PollRepository;
 import hh.ohjelmistoprojekti.kysely.domain.Question;
@@ -31,6 +32,9 @@ public class PollController {
 	
 	@Autowired
 	private PollRepository prepository;
+	
+	@Autowired
+	private AnswerRepository arepository;
 
 	@RequestMapping(value = "/addpoll", method = RequestMethod.GET)
 	public String getNewPoll(Model model) {
@@ -40,7 +44,6 @@ public class PollController {
 
 	// REST
     @RequestMapping(value="jsonpolls", method = RequestMethod.GET)
-    @CrossOrigin(origins = "http://localhost:3000")
     public @ResponseBody List<Poll> pollListRest() {
         return (List<Poll>) prepository.findAll();
     }
@@ -54,11 +57,8 @@ public class PollController {
 	@RequestMapping(value = "/savepoll", method = RequestMethod.POST)
 	public String savePoll(@ModelAttribute("poll") Poll poll) {
 	    // Create three new Question objects and add them to the Poll's list of questions
-	    List<Question> questions = new ArrayList<>();
-	    questions.add(new Question(poll.getQuestions().get(0).getQuery(), poll));
-	    questions.add(new Question(poll.getQuestions().get(1).getQuery(), poll));
-	    questions.add(new Question(poll.getQuestions().get(2).getQuery(), poll));
-	    poll.setQuestions(questions);
+	   
+	    
 
 	    // Save the new Poll object to the database using the PollRepository
 	    prepository.save(poll);

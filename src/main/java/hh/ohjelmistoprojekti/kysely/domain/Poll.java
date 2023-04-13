@@ -20,6 +20,7 @@ public class Poll {
 	@GeneratedValue(strategy=GenerationType.AUTO)
     private Long poll_id;
 	private String title;
+	
     @OneToMany(mappedBy = "poll", cascade = CascadeType.ALL)
     @JsonIgnoreProperties("jsonpolls")
     private List<Question> questions;
@@ -57,9 +58,11 @@ public class Poll {
         this.questions = questions;
     }
     
+    
+    
 	@Override
 	public String toString() {
-		return "Poll [poll_id=" + poll_id + ", title=" + title + ", questions=" + this.getQuestions() + "]";
+		return "Poll [poll_id=" + poll_id + ", title=" + title + "]";
 	}
 
 }
