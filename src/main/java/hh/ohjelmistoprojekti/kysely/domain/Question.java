@@ -81,7 +81,7 @@ public class Question {
 
 	@Override
 	public String toString() {
-		return "Question [id=" + id + ", query=" + query + "]";
+		return "Question [id=" + id + ", query=" + query + "poll " + poll + "]";
 	}
     
 }
