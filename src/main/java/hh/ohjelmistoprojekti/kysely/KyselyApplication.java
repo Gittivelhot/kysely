@@ -24,9 +24,11 @@ public class KyselyApplication {
         Poll p1 = new Poll("banaani kysely");
         Poll p2 = new Poll("vaate kysely");
         Poll p3 = new Poll("lempiruoka kysely");
+        Poll p4 = new Poll("Kouluruokakysely");
         prepository.save(p1);
         prepository.save(p2);
         prepository.save(p3);
+        prepository.save(p4);
 
         Question q1 = new Question();
         q1.setQuery("Onko banaani keltainen?");
@@ -69,6 +71,21 @@ public class KyselyApplication {
         q8.setQuery("Mikä on lempiruokasi?");
         q8.setPoll(p3);
         qrepository.save(q8);
+        
+        Question q9 = new Question();
+        q9.setQuery("Onko kouluruoka pysynyt samanlaatuisena opiskeluidesi ajan?");
+        q9.setPoll(p4);
+        qrepository.save(q9);
+        
+        Question q10 = new Question();
+        q10.setQuery("Miten kouluruokaa voisi parantaa?");
+        q10.setPoll(p4);
+        qrepository.save(q10);
+        
+        Question q11 = new Question();
+        q11.setQuery("Kuinka usein käyt syömässä viikossa?");
+        q11.setPoll(p4);
+        qrepository.save(q11);
 
         
         Answer a1 = new Answer ();
