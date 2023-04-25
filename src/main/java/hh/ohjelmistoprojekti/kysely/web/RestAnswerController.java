@@ -10,12 +10,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import hh.ohjelmistoprojekti.kysely.domain.Answer;
 import hh.ohjelmistoprojekti.kysely.domain.AnswerRepository;
-import hh.ohjelmistoprojekti.kysely.domain.Poll;
-import hh.ohjelmistoprojekti.kysely.domain.PollRepository;
-import hh.ohjelmistoprojekti.kysely.domain.QuestionRepository;
 
 @Controller
 public class RestAnswerController {
