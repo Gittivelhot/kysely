@@ -45,18 +45,6 @@ public class PollController {
 		return "addpoll";
 	}
 
-	// REST
-    @RequestMapping(value="jsonpolls", method = RequestMethod.GET)
-    public @ResponseBody List<Poll> pollListRest() {
-        return (List<Poll>) prepository.findAll();
-    }
-
-    // REST by id
-    @RequestMapping (value ="jsonpolls/{id}", method = RequestMethod.GET)
-    public @ResponseBody Optional <Poll> findPollRest(@PathVariable("id") Long id){
-        return prepository.findById(id);
-    }
-	
 	@RequestMapping(value = "/savepoll", method = RequestMethod.POST)
 	public String savePoll(@ModelAttribute("poll") Poll poll) {
 		System.out.print("Kyselyn kysymykset: " + poll.getQuestions());
