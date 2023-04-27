@@ -28,6 +28,12 @@ public class RestAnswerController {
         return arepository.save(answer);
     }
     
+    //restfull service to list all answers
+    @RequestMapping (value = "/json/list/answers", method = RequestMethod.GET)
+    public @ResponseBody List <Answer> answerlistRest (){
+    	return (List <Answer>) arepository.findAll();
+    }
+    
     
     
 }
