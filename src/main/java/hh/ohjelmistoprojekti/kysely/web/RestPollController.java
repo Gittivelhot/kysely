@@ -36,7 +36,7 @@ public class RestPollController {
     }
 
     // REST by id
-    @RequestMapping (value ="json/polls/{id}", method = RequestMethod.GET)
+    @RequestMapping (value ="/json/polls/{id}", method = RequestMethod.GET)
     public @ResponseBody Optional <Poll> findPollRest(@PathVariable("id") Long id){
         return prepository.findById(id);
     }

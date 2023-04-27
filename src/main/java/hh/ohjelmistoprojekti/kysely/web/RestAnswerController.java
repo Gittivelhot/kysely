@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import hh.ohjelmistoprojekti.kysely.domain.Answer;
 import hh.ohjelmistoprojekti.kysely.domain.AnswerRepository;
+import hh.ohjelmistoprojekti.kysely.domain.Poll;
 
 @Controller
 public class RestAnswerController {
@@ -21,10 +22,12 @@ public class RestAnswerController {
 	@Autowired
 	private AnswerRepository arepository;
 	
-    // RESTful service to save new student
-    @RequestMapping(value="json/answers", method = RequestMethod.POST)
+    // RESTful service to save new answer
+    @RequestMapping(value="/json/answers", method = RequestMethod.POST)
     public @ResponseBody Answer saveAnswerRest(@RequestBody Answer answer) {
         return arepository.save(answer);
     }
+    
+    
     
 }
