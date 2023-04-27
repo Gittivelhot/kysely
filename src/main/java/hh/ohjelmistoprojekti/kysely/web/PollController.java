@@ -57,13 +57,15 @@ public class PollController {
 	}
 
 	@RequestMapping(value = "/polls", method = RequestMethod.GET)
-	public String getPolls(Model model) {
-		List<Poll> polls = (List<Poll>) prepository.findAll();
-		List<Question> questions = (List<Question>) qrepository.findAll();
-		model.addAttribute("polls", polls);
-		model.addAttribute("questions", questions);
-		return "polls";
-	}
+    public String getPolls(Model model) {
+        List<Poll> polls = (List<Poll>) prepository.findAll();
+        List<Question> questions = (List<Question>) qrepository.findAll();
+        List <Answer> answers = (List<Answer>) arepository.findAll();
+        model.addAttribute("polls", polls);
+        model.addAttribute("questions", questions);
+        model.addAttribute("answers", answers);
+        return "polls";
+    }
 	
 	
 }
