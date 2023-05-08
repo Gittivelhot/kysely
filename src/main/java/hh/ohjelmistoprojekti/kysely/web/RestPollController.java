@@ -8,31 +8,22 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import hh.ohjelmistoprojekti.kysely.domain.AnswerRepository;
 import hh.ohjelmistoprojekti.kysely.domain.Poll;
 import hh.ohjelmistoprojekti.kysely.domain.PollRepository;
-import hh.ohjelmistoprojekti.kysely.domain.QuestionRepository;
 import org.springframework.stereotype.Controller;
 
 
 @Controller
 public class RestPollController {
 
-	
-	@Autowired
-	private QuestionRepository qrepository;
-	
 	@Autowired
 	private PollRepository prepository;
-	
-	@Autowired
-	private AnswerRepository arepository;
 	
 	
 	// REST	 lists all polls
     @RequestMapping(value="/json/polls", method = RequestMethod.GET)
     public @ResponseBody List<Poll> pollListRest() {
-        return (List<Poll>) prepository.findAll();
+        return (List<Poll>) prepository.findByVisibleTrue();
     }
 
     // REST by id

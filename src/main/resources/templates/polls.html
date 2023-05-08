@@ -18,12 +18,19 @@
 				Welcome <span sec:authentication="name"></span>
 			</h3>
 		</div>
-		<div class="col-md-4" style="padding: 20px 0"></div>
-<table class="table table-striped">
+		<div class="col-md-4" style="padding:20px 0">
+			<form th:action="@{/logout}" method="post">
+				<input type="submit" value="Sign Out" class="btn btn-sm btn-danger"/>
+			</form>
+		</div>  
+	<table class="table table-striped">
     <thead>
         <tr>
             <th>Poll title</th>
             <th>Questions</th>
+            <th>Show/Hide</th>
+            <th>Edit</th>
+            <th>Delete</th>
             <th>Answers</th>
         </tr>
     </thead>
@@ -39,21 +46,18 @@
                     </tbody>
                 </table>
             </td>
-            <td>
-                <table>
-                    <tbody>
-                        <tr th:each="question : ${poll.questions}">
-                            <td>
-                                <table>
-                                    <tbody>
-                                        <tr th:each="answer, iterStat: ${question.answers}" th:text="${answer.reply + (iterStat.last ? '' : ',')}"></tr>
-                                    </tbody>
-                                </table>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </td>
+            	<td th:if="${(poll.user.username == user || isAdmin) && poll.visible}"><a th:href="@{/hide/{id}(id=${poll.poll_id})}" class="btn btn-xs btn-warning">Hide</a></td>
+            	<td th:if="${(poll.user.username == user || isAdmin) && !poll.visible}"><a th:href="@{/show/{id}(id=${poll.poll_id})}" class="btn btn-xs btn-success">Show</a></td>
+				<td th:unless="${poll.user.username == user || isAdmin}"></td>
+				
+				<td th:if="${poll.user.username == user || isAdmin}"><a th:href="@{/edit/{id}(id=${poll.poll_id})}" class="btn btn-xs btn-primary">Edit</a></td>
+				<td th:unless="${poll.user.username == user || isAdmin}"></td>
+				
+ 			 	<td th:if="${poll.user.username == user || isAdmin}"><a th:href="@{/delete/{id}(id=${poll.poll_id})}" class="btn btn-xs btn-danger">Delete</a></td>
+				<td th:unless="${poll.user.username == user || isAdmin}"></td>
+				
+				<td th:if="${poll.user.username == user || isAdmin}"><a th:href="@{/poll/{id}(id=${poll.poll_id})}" class="btn btn-xs btn-success">Answers</a></td>
+				<td th:unless="${poll.user.username == user || isAdmin}"></td>
         </tr>
     </tbody>
 </table>

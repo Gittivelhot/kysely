@@ -2,7 +2,7 @@ package hh.ohjelmistoprojekti.kysely.domain;
 
 import org.springframework.data.repository.CrudRepository;
 
-public interface AnswerRepository extends CrudRepository<Answer, Long> {
+public interface PollAnswerRepository extends CrudRepository<PollAnswer, Long> {
 
 } 
 
