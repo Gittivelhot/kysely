@@ -8,7 +8,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,6 +15,8 @@ import hh.ohjelmistoprojekti.kysely.domain.Poll;
 import hh.ohjelmistoprojekti.kysely.domain.PollRepository;
 import hh.ohjelmistoprojekti.kysely.domain.Question;
 import hh.ohjelmistoprojekti.kysely.domain.QuestionRepository;
+import hh.ohjelmistoprojekti.kysely.domain.User;
+import hh.ohjelmistoprojekti.kysely.domain.UserRepository;
 
 @Controller
 public class PollController {
@@ -25,6 +26,9 @@ public class PollController {
 	
 	@Autowired
 	private PollRepository prepository;
+	
+	@Autowired
+	private UserRepository urepository;
 
 	@RequestMapping(value = "/addpoll", method = RequestMethod.GET)
 	public String getNewPoll(Model model) {
@@ -33,8 +37,11 @@ public class PollController {
 	}
 
 	@RequestMapping(value = "/savepoll", method = RequestMethod.POST)
-	public String savePoll(@ModelAttribute("poll") Poll poll) {
-		System.out.print("Kyselyn kysymykset: " + poll.getQuestions());
+	public String savePoll(Poll poll, Principal principal) {
+		String username = principal.getName();
+		User user = urepository.findByUsername(username);
+		poll.setUser(user);
+		poll.setVisible(true);
 		prepository.save(poll);
 	    for (Question question : poll.getQuestions()) {
 	    	question.setPoll(poll);
@@ -65,7 +72,6 @@ public class PollController {
 		Optional<Poll> pollOptional = prepository.findById(poll_id);
 		if(pollOptional.isPresent() && (isAdmin || pollOptional.get().getUser().getUsername().equals(principal.getName()))) {
 			model.addAttribute("poll", pollOptional.get());
-			System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"+ pollOptional.get());
 			return "pollanswers";
 		}
 		return "redirect:../";

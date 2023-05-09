@@ -26,17 +26,18 @@
 	<table class="table table-striped">
     <thead>
         <tr>
+            <th>Created by</th>
             <th>Poll title</th>
             <th>Questions</th>
             <th>Show/Hide</th>
             <th>Edit</th>
             <th>Delete</th>
-            <th>Answers</th>
         </tr>
     </thead>
     <tbody>
         <tr th:each="poll : ${polls}">
-            <td th:text="${poll.title}"></td>
+				<td th:text="${poll.user.username}"></td>
+            <td><strong th:text="${poll.title}"></strong></td>
             <td>
                 <table>
                     <tbody>
@@ -56,8 +57,6 @@
  			 	<td th:if="${poll.user.username == user || isAdmin}"><a th:href="@{/delete/{id}(id=${poll.poll_id})}" class="btn btn-xs btn-danger">Delete</a></td>
 				<td th:unless="${poll.user.username == user || isAdmin}"></td>
 				
-				<td th:if="${poll.user.username == user || isAdmin}"><a th:href="@{/poll/{id}(id=${poll.poll_id})}" class="btn btn-xs btn-success">Answers</a></td>
-				<td th:unless="${poll.user.username == user || isAdmin}"></td>
         </tr>
     </tbody>
 </table>
