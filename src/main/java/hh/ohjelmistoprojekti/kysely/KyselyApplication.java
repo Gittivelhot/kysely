@@ -5,7 +5,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import hh.ohjelmistoprojekti.kysely.domain.User;
-import hh.ohjelmistoprojekti.kysely.domain.Answer;
 import hh.ohjelmistoprojekti.kysely.domain.AnswerRepository;
 import hh.ohjelmistoprojekti.kysely.domain.Poll;
 import hh.ohjelmistoprojekti.kysely.domain.PollRepository;

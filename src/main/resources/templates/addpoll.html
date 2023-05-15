@@ -1,36 +1,37 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Create poll</title>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <title>Create Poll</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body>
-    <h1>Create Poll</h1>
-    <form action="#" th:action="@{/savepoll}" th:object="${poll}" method="post">
-        <label for="title">Title:</label>
-        <input type="text" id="title" th:field="*{title}"/><br/><br/>
-        
-        <div id="question-container">
-            <div class="question">
+	<div class="container d-flex flex-column justify-content-center">
+    <h1 class="text-center">Create Poll</h1>
+    
+	    <form action="#" th:action="@{/savepoll}" th:object="${poll}" method="post">
+	    	<div class="form-group">
+		        <label for="title">Title:</label>
+		        <input type="text" id="title" th:field="*{title}" class="form-control"/><br/><br/>
+	       	</div>
+	        <div id="question-container" class="form-group">
                 <label for="query1">Question 1:</label>
-                <input type="text" th:field="*{questions[0].query}"/><br/><br/>
-            </div>
-        </div>
-        
-        
-        <input type="submit" class="btn btn-success" value="Submit"/>
-        <input type="reset" value="Reset" class="btn btn-warning" />
-        <a href="/" class="btn btn-primary"> Back to polls</a>
-        <button type="button" id="add-question-btn" class="btn btn-info">Add Question</button>
-    </form>
+                <input type="text" th:field="*{questions[0].query}" class="form-control"/><br/><br/>
+	        </div>
+		        <input type="submit" class="btn btn-success" value="Submit"/>
+		        <input type="reset" value="Reset" class="btn btn-warning" />
+		        <a href="/" class="btn btn-primary"> Back to polls</a>
+		        <button type="button" id="add-question-btn" class="btn btn-info">Add Question</button>
+	    </form>
+    </div>
     
     <script>
         $(document).ready(function() {
             var questionCount = 1;
             $('#add-question-btn').click(function() {
-                var questionHtml = '<div class="question"><label for="query' + (questionCount+1) + '">Question ' + (questionCount+1) + ':</label><input type="text" name="questions[' + questionCount + '].query"/><br/><br/></div>';
+                var questionHtml = '<div class="question"><label for="query' + (questionCount+1) + '">Question ' + (questionCount+1) + ':</label><input type="text" name="questions[' + questionCount + '].query" class="form-control"/><br/><br/></div>';
                 $('#question-container').append(questionHtml);
                 questionCount++;
             });

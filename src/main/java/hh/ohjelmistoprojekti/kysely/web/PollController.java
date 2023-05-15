@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
 import hh.ohjelmistoprojekti.kysely.domain.Poll;
 import hh.ohjelmistoprojekti.kysely.domain.PollRepository;
 import hh.ohjelmistoprojekti.kysely.domain.Question;
@@ -115,6 +116,51 @@ public class PollController {
 			prepository.deleteById(poll_id);
 		}
 		return "redirect:../";
+	}
+	
+	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
+	public String editPoll(@PathVariable("id") Long pollId, Model model, Principal principal) {
+		Authentication authentication = (Authentication) principal;
+		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+		boolean isAdmin = userDetails.getAuthorities().stream().anyMatch(auth -> auth.getAuthority().equals("ADMIN"));
+		Optional<Poll> pollOptional = prepository.findById(pollId);
+		if(isAdmin || pollOptional.get().getUser().getUsername().equals(principal.getName())) {
+			model.addAttribute("poll", prepository.findById(pollId));
+			model.addAttribute("questions", pollOptional.get().getQuestions());
+			model.addAttribute("pollId", pollId);
+			return "editpoll";
+		}
+		return "redirect:/";
+	}
+	
+	@RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
+	public String updatePoll(@PathVariable("id") Long pollId, Poll updatedPoll, Principal principal) {
+		Authentication authentication = (Authentication) principal;
+		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+		boolean isAdmin = userDetails.getAuthorities().stream().anyMatch(auth -> auth.getAuthority().equals("ADMIN"));
+		Optional<Poll> pollOptional = prepository.findById(pollId);
+		if(pollOptional.isPresent() && (isAdmin || pollOptional.get().getUser().getUsername().equals(principal.getName()))) {
+			Poll poll = pollOptional.get();
+	        poll.setTitle(updatedPoll.getTitle());
+	        
+	        // Remove all existing questions
+	        List<Question> existingQuestions = poll.getQuestions();
+	        for (Question existingQuestion : existingQuestions) {
+	            existingQuestion.setPoll(null); // Remove the reference to the poll
+	        }
+	        existingQuestions.clear();
+	        
+	        // Add the updated questions
+	        List<Question> updatedQuestions = updatedPoll.getQuestions();
+	        for (Question updatedQuestion : updatedQuestions) {
+	            updatedQuestion.setPoll(poll); // Set the reference to the updated poll
+	            existingQuestions.add(updatedQuestion);
+	        }
+	        
+	        poll.setVisible(true);
+	        prepository.save(poll);
+	    }
+	    return "redirect:../";
 	}
 	
 	
